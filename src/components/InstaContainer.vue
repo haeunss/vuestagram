@@ -21,7 +21,7 @@
   <div v-if="step==2">
     <div class="upload-image" :style="`background-image:url(${url})`"></div>
     <div class="write">
-      <textarea class="write-box">게시물을 작성해주세요.</textarea>
+      <textarea class="write-box" placeholder="게시물을 작성해주세요." @input="$emit('write',$event.target.value)"></textarea>
     </div>
   </div>
 

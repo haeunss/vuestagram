@@ -10,7 +10,7 @@
     <img src="./assets/images/instagram.png" class="logo" />
   </div>
 
-  <InstaContainer :PostData="PostData" :step="step" :url="url" />
+  <InstaContainer :PostData="PostData" :step="step" :url="url" @write="NewPost = $event" />
   <button @click="more" v-if="step==0">더보기</button>
 
   <div class="footer">
@@ -19,13 +19,6 @@
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
-
- <!-- <div v-if="step==0">내용0</div>
- <div v-if="step==1">내용1</div>
- <div v-if="step==2">내용2</div>
- <button @click="step=0">버튼0</button>
- <button @click="step=1">버튼1</button>
- <button @click="step=2">버튼2</button> -->
 
 </template>
 
@@ -42,6 +35,7 @@ export default {
       PostData: PostData,
       MorePost: 0,
       url: '',
+      NewPost:'',
     }
   },
   components: {
@@ -66,13 +60,13 @@ methods:{
   },
   publish(){
     var myPost = {
-      name: "eunie___day",
+      name: "eunie___day ",
       userImage: "https://placeimg.com/100/100/arch",
-      postImage: "this.url",
+      postImage: this.url,
       likes: 36,
       date: "May 15",
       liked: false,
-      content: "내가 입력한 글",
+      content: this.NewPost,
       filter: "perpetua"
     };
     this.PostData.unshift(myPost);
