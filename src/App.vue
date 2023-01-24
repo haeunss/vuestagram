@@ -1,15 +1,16 @@
 <template>
   <div class="header">
     <ul class="header-button-left">
-      <li>Cancel</li>
+      <li v-if="step>0" @click="step=0">Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step==1" @click="step++">Next</li>
+      <li v-if="step==2" @click="publish">Write</li>
     </ul>
     <img src="./assets/images/instagram.png" class="logo" />
   </div>
 
-  <InstaContainer :PostData="PostData" :step="step" />
+  <InstaContainer :PostData="PostData" :step="step" :url="url" />
   <button @click="more" v-if="step==0">더보기</button>
 
   <div class="footer">
@@ -40,6 +41,7 @@ export default {
       step: 0,
       PostData: PostData,
       MorePost: 0,
+      url: '',
     }
   },
   components: {
@@ -59,7 +61,22 @@ methods:{
     let file = e.target.files;
     let url = URL.createObjectURL(file[0]);
     console.log(url);
+    this.url = url;
     this.step++;
+  },
+  publish(){
+    var myPost = {
+      name: "eunie___day",
+      userImage: "https://placeimg.com/100/100/arch",
+      postImage: "this.url",
+      likes: 36,
+      date: "May 15",
+      liked: false,
+      content: "내가 입력한 글",
+      filter: "perpetua"
+    };
+    this.PostData.unshift(myPost);
+    this.step=0;
   }
 },
 
