@@ -9,30 +9,60 @@
     <img src="./assets/images/instagram.png" class="logo" />
   </div>
 
-  <InstaContainer :PostData="PostData" />
+  <InstaContainer :PostData="PostData" :step="step" />
+  <button @click="more" v-if="step==0">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" multiple accept="image/*" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
- </div>
+  </div>
+
+ <!-- <div v-if="step==0">내용0</div>
+ <div v-if="step==1">내용1</div>
+ <div v-if="step==2">내용2</div>
+ <button @click="step=0">버튼0</button>
+ <button @click="step=1">버튼1</button>
+ <button @click="step=2">버튼2</button> -->
+
 </template>
 
 <script>
 import InstaContainer from './components/InstaContainer.vue'
 import PostData from './assets/PostData.js'
+import axios from 'axios'
 
 export default {
   name: 'App',
   data(){
     return{
+      step: 0,
       PostData: PostData,
+      MorePost: 0,
     }
   },
   components: {
     InstaContainer: InstaContainer,
   },
+methods:{
+  more(){
+    // axios.post('URL',{name:'kim'}).then().catch((err)=>{err})
+    axios.get(`https://codingapple1.github.io/vue/more${this.MorePost}.json`)
+    .then(result=>{
+      console.log(result.data);
+      this.PostData.push(result.data);   
+      this.MorePost++;
+    })
+  },
+  upload(e){
+    let file = e.target.files;
+    let url = URL.createObjectURL(file[0]);
+    console.log(url);
+    this.step++;
+  }
+},
+
 }
 </script>
 
