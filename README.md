@@ -32,7 +32,8 @@
 
 <br/>
 
-## 📢 [꼬띠샵 배포 링크](https://shop-haeunss.vercel.app/)
+## 📢 [뷰 배포 링크](https://vuestagram.vercel.app/)
+
 
 <br/>
 <br/>
